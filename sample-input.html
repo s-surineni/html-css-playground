@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sample HTML Inputs</title>
+    <style>
+      :root { color-scheme: light dark; }
+      * { box-sizing: border-box; }
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; line-height: 1.5; margin: 0; }
+      header { padding: 1.25rem; border-bottom: 1px solid #e5e7eb; }
+      header h1 { margin: 0 0 .25rem 0; font-size: 1.5rem; }
+      main { max-width: 900px; padding: 1.25rem; margin: 0 auto; }
+      form { display: grid; gap: 1.25rem; }
+      fieldset { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; }
+      legend { padding: 0 .5rem; font-weight: 600; }
+      .field { display: grid; gap: .4rem; margin-block: .6rem; }
+      label, .label { font-weight: 600; }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"],
+      input[type="search"],
+      input[type="number"],
+      input[type="date"],
+      input[type="time"],
+      input[type="color"],
+      input[type="file"],
+      select,
+      textarea { width: 100%; padding: .55rem .65rem; border: 1px solid #d1d5db; border-radius: 6px; background: inherit; }
+      textarea { resize: vertical; }
+      .choice-group label { font-weight: 400; margin-right: 1rem; }
+      .actions { display: flex; gap: .75rem; }
+      button { padding: .6rem 1rem; border: 1px solid #11182720; border-radius: 6px; background: #2563eb; color: white; cursor: pointer; }
+      button[type="reset"] { background: transparent; color: inherit; }
+      .inline { display: flex; align-items: center; gap: .5rem; }
+      output { font-variant-numeric: tabular-nums; padding-left: .5rem; }
+      nav { padding: .75rem 1.25rem; border-bottom: 1px solid #e5e7eb; }
+      nav a { color: #2563eb; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Sample HTML Inputs</h1>
+      <p>A quick reference of common, accessible form controls.</p>
+    </header>
+    <nav>
+      <a href="/">← Home</a>
+    </nav>
+    <main>
+      <form action="#" method="get" novalidate>
+        <fieldset>
+          <legend>Textual inputs</legend>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" minlength="8" required />
+          </div>
+          <div class="field">
+            <label for="search">Search</label>
+            <input id="search" name="q" type="search" placeholder="Search..." />
+          </div>
+          <div class="field">
+            <label for="about">About you</label>
+            <textarea id="about" name="about" rows="4" aria-describedby="aboutHelp"></textarea>
+            <small id="aboutHelp">Share a short description (optional).</small>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Choices</legend>
+          <div class="field">
+            <span class="label">Subscriptions</span>
+            <div class="choice-group inline">
+              <label><input type="checkbox" name="subs" value="news" /> Newsletter</label>
+              <label><input type="checkbox" name="subs" value="offers" /> Offers</label>
+              <label><input type="checkbox" name="subs" value="alerts" /> Alerts</label>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label">Plan</span>
+            <div class="choice-group inline" role="radiogroup" aria-label="Plan">
+              <label><input type="radio" name="plan" value="basic" /> Basic</label>
+              <label><input type="radio" name="plan" value="pro" /> Pro</label>
+              <label><input type="radio" name="plan" value="team" checked /> Team</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country" name="country">
+              <option value="">Select...</option>
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="GB">United Kingdom</option>
+              <option value="IN">India</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Numeric and pickers</legend>
+          <div class="field">
+            <label for="qty">Quantity</label>
+            <input id="qty" name="qty" type="number" min="0" max="100" step="1" value="1" />
+          </div>
+          <div class="field inline">
+            <label for="satisfaction">Satisfaction</label>
+            <input id="satisfaction" name="satisfaction" type="range" min="0" max="10" value="5" />
+            <output id="satisfactionOut" for="satisfaction">5</output>
+          </div>
+          <div class="field">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" />
+          </div>
+          <div class="field">
+            <label for="time">Time</label>
+            <input id="time" name="time" type="time" />
+          </div>
+          <div class="field">
+            <label for="color">Favorite color</label>
+            <input id="color" name="color" type="color" value="#3b82f6" />
+          </div>
+          <div class="field">
+            <label for="file">File upload</label>
+            <input id="file" name="file" type="file" accept=".png,.jpg,.pdf" />
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit">Submit</button>
+          <button type="reset">Reset</button>
+        </div>
+      </form>
+    </main>
+    <script>
+      const range = document.getElementById('satisfaction');
+      const out = document.getElementById('satisfactionOut');
+      if (range && out) {
+        const update = () => { out.textContent = range.value; };
+        range.addEventListener('input', update);
+        update();
+      }
+    </script>
+  </body>
+  </html>
+
+
