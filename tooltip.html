@@ -1,6 +1,8 @@
 <style>
     .tooltip-wrapper { position: relative; display: inline-block; }
-    .tooltip {
+    .tooltip-trigger { position: relative; }
+    .tooltip-trigger::after {
+        content: attr(data-tooltip);
         position: absolute;
         top: calc(100% + 8px);
         left: 50%;
@@ -18,17 +20,23 @@
         transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
         z-index: 10;
     }
-    .tooltip::after {
+    .tooltip-trigger::before {
         content: "";
         position: absolute;
-        top: -6px;
+        top: calc(100% + 2px);
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(4px);
         border: 6px solid transparent;
         border-bottom-color: #111;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .15s ease, transform .15s ease, visibility .15s ease;
+        z-index: 10;
     }
-    .tooltip-wrapper:hover .tooltip,
-    .tooltip-wrapper:focus-within .tooltip {
+    .tooltip-wrapper:hover .tooltip-trigger::after,
+    .tooltip-wrapper:focus-within .tooltip-trigger::after,
+    .tooltip-wrapper:hover .tooltip-trigger::before,
+    .tooltip-wrapper:focus-within .tooltip-trigger::before {
         opacity: 1;
         visibility: visible;
         transform: translateX(-50%) translateY(0);
@@ -37,6 +45,39 @@
 </style>
 
 <div class="tooltip-wrapper">
-    <button type="button" aria-describedby="tip1">Hover me</button>
-    <span id="tip1" role="tooltip" class="tooltip">This is a tooltip</span>
+    <button type="button" class="tooltip-trigger" data-tooltip="Hover to load tooltip…"
+        aria-label="Hover me, shows tooltip">Hover me</button>
 </div>
+<script>
+    (function () {
+        const btn = document.querySelector('.tooltip-trigger');
+        if (!btn) return;
+
+        let loaded = false;
+        let inFlight = false;
+
+        async function loadTooltip() {
+            if (loaded || inFlight) return;
+            inFlight = true;
+            const original = btn.getAttribute('data-tooltip') || '';
+            btn.setAttribute('data-tooltip', 'Loading…');
+            try {
+                const res = await fetch('https://api.github.com/zen', { cache: 'no-store' });
+                if (!res.ok) throw new Error('Network error');
+                const text = (await res.text()).trim();
+                btn.setAttribute('data-tooltip', text || 'No data returned');
+                loaded = true;
+            } catch (e) {
+                btn.setAttribute('data-tooltip', 'Unable to load tooltip');
+                setTimeout(() => {
+                    if (!loaded) btn.setAttribute('data-tooltip', original);
+                }, 2000);
+            } finally {
+                inFlight = false;
+            }
+        }
+
+        btn.addEventListener('mouseenter', loadTooltip);
+        btn.addEventListener('focus', loadTooltip);
+    })();
+</script>
