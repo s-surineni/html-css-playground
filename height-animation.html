@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Height Animation Components</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .component-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .component-title {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* Accordion Component */
+        .accordion-item {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background: #f5f5f5;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: #e8e8e8;
+        }
+
+        .accordion-header.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+        }
+
+        .accordion-content.active {
+            max-height: 200px;
+        }
+
+        .accordion-text {
+            padding: 15px;
+            color: #666;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            background: #45a049;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+            z-index: 1000;
+            margin-top: 5px;
+        }
+
+        .dropdown-menu.active {
+            max-height: 300px;
+        }
+
+        .dropdown-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #f5f5f5;
+        }
+
+        /* Collapsible Card */
+        .collapsible-card {
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .collapsible-content {
+            background: #fafafa;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out;
+        }
+
+        .collapsible-content.active {
+            max-height: 400px;
+        }
+
+        .collapsible-body {
+            padding: 20px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Toggle Panel */
+        .toggle-panel {
+            background: #2c3e50;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .toggle-button {
+            width: 100%;
+            background: #34495e;
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease;
+        }
+
+        .toggle-button:hover {
+            background: #4a5f7f;
+        }
+
+        .toggle-content {
+            background: #ecf0f1;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .toggle-content.active {
+            max-height: 250px;
+        }
+
+        .toggle-inner {
+            padding: 20px;
+            color: #2c3e50;
+        }
+
+        /* Animated List */
+        .animated-list {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .list-item {
+            background: white;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+        }
+
+        .list-item.active {
+            max-height: 100px;
+            opacity: 1;
+            padding: 15px;
+        }
+
+        /* Icons */
+        .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .icon.rotate {
+            transform: rotate(180deg);
+        }
+
+        /* Controls */
+        .controls {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .control-btn {
+            background: #9b59b6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: #8e44ad;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(155, 89, 182, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Height Animation Components</h1>
+        
+        <div class="components-grid">
+            <!-- Accordion Component -->
+            <div class="component-card">
+                <h2 class="component-title">Accordion</h2>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Section 1</span>
+                        <span class="icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-text">
+                            This is the content for section 1. It appears and disappears with a smooth height animation.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Section 2</span>
+                        <span class="icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-text">
+                            This is the content for section 2. Click the header to toggle its visibility.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <span>Section 3</span>
+                        <span class="icon">▼</span>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-text">
+                            This is the content for section 3. Each section animates independently.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dropdown Menu -->
+            <div class="component-card">
+                <h2 class="component-title">Dropdown Menu</h2>
+                <div class="dropdown">
+                    <button class="dropdown-toggle" onclick="toggleDropdown(this)">
+                        Select Option ▼
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-item">Option 1</div>
+                        <div class="dropdown-item">Option 2</div>
+                        <div class="dropdown-item">Option 3</div>
+                        <div class="dropdown-item">Option 4</div>
+                        <div class="dropdown-item">Option 5</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Collapsible Card -->
+            <div class="component-card">
+                <h2 class="component-title">Collapsible Card</h2>
+                <div class="collapsible-card">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <span>Click to Expand</span>
+                        <span class="icon">▼</span>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-body">
+                            This is a collapsible card with smooth height animation. The content can be text, images, or any other HTML elements. The animation uses CSS transitions for smooth performance.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toggle Panel -->
+            <div class="component-card">
+                <h2 class="component-title">Toggle Panel</h2>
+                <div class="toggle-panel">
+                    <button class="toggle-button" onclick="togglePanel(this)">
+                        Toggle Panel Content
+                    </button>
+                    <div class="toggle-content">
+                        <div class="toggle-inner">
+                            This panel content appears and disappears with height animation. Perfect for showing/hiding additional information or controls.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated List -->
+            <div class="component-card">
+                <h2 class="component-title">Animated List</h2>
+                <div class="animated-list" id="animatedList">
+                    <div class="list-item">Item 1 - Animates in and out</div>
+                    <div class="list-item">Item 2 - Smooth height transition</div>
+                    <div class="list-item">Item 3 - Fade and height effect</div>
+                    <div class="list-item">Item 4 - Combined animation</div>
+                    <div class="list-item">Item 5 - Dynamic appearance</div>
+                </div>
+                <div style="margin-top: 15px; text-align: center;">
+                    <button class="control-btn" onclick="toggleListItems()">Toggle All Items</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="expandAll()">Expand All</button>
+            <button class="control-btn" onclick="collapseAll()">Collapse All</button>
+            <button class="control-btn" onclick="randomToggle()">Random Toggle</button>
+        </div>
+    </div>
+
+    <script>
+        // Accordion functionality
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.icon');
+            
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            icon.classList.toggle('rotate');
+        }
+
+        // Dropdown functionality
+        function toggleDropdown(button) {
+            const menu = button.nextElementSibling;
+            menu.classList.toggle('active');
+            
+            // Close dropdown when clicking on an item
+            const items = menu.querySelectorAll('.dropdown-item');
+            items.forEach(item => {
+                item.onclick = function() {
+                    button.textContent = this.textContent + ' ▼';
+                    menu.classList.remove('active');
+                };
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function closeDropdown(e) {
+                if (!button.contains(e.target) && !menu.contains(e.target)) {
+                    menu.classList.remove('active');
+                    document.removeEventListener('click', closeDropdown);
+                }
+            });
+        }
+
+        // Collapsible functionality
+        function toggleCollapsible(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.icon');
+            
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            icon.classList.toggle('rotate');
+        }
+
+        // Toggle panel functionality
+        function togglePanel(button) {
+            const content = button.nextElementSibling;
+            content.classList.toggle('active');
+        }
+
+        // Animated list functionality
+        let listItemsVisible = false;
+        function toggleListItems() {
+            const items = document.querySelectorAll('.list-item');
+            listItemsVisible = !listItemsVisible;
+            
+            items.forEach((item, index) => {
+                setTimeout(() => {
+                    if (listItemsVisible) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                }, index * 100);
+            });
+        }
+
+        // Global controls
+        function expandAll() {
+            // Expand all accordions
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.classList.add('active');
+                header.nextElementSibling.classList.add('active');
+                header.querySelector('.icon').classList.add('rotate');
+            });
+            
+            // Expand all collapsibles
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.classList.add('active');
+                header.nextElementSibling.classList.add('active');
+                header.querySelector('.icon').classList.add('rotate');
+            });
+            
+            // Expand all panels
+            document.querySelectorAll('.toggle-content').forEach(content => {
+                content.classList.add('active');
+            });
+            
+            // Show all list items
+            document.querySelectorAll('.list-item').forEach(item => {
+                item.classList.add('active');
+            });
+        }
+
+        function collapseAll() {
+            // Collapse all accordions
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.classList.remove('active');
+                header.nextElementSibling.classList.remove('active');
+                header.querySelector('.icon').classList.remove('rotate');
+            });
+            
+            // Collapse all collapsibles
+            document.querySelectorAll('.collapsible-header').forEach(header => {
+                header.classList.remove('active');
+                header.nextElementSibling.classList.remove('active');
+                header.querySelector('.icon').classList.remove('rotate');
+            });
+            
+            // Collapse all panels
+            document.querySelectorAll('.toggle-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Hide all list items
+            document.querySelectorAll('.list-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function randomToggle() {
+            const allToggleableElements = [
+                ...document.querySelectorAll('.accordion-header'),
+                ...document.querySelectorAll('.collapsible-header'),
+                ...document.querySelectorAll('.toggle-content'),
+                ...document.querySelectorAll('.list-item')
+            ];
+            
+            // Toggle random elements
+            allToggleableElements.forEach(element => {
+                if (Math.random() > 0.5) {
+                    if (element.classList.contains('accordion-header') || element.classList.contains('collapsible-header')) {
+                        element.classList.toggle('active');
+                        element.nextElementSibling.classList.toggle('active');
+                        const icon = element.querySelector('.icon');
+                        if (icon) icon.classList.toggle('rotate');
+                    } else {
+                        element.classList.toggle('active');
+                    }
+                }
+            });
+        }
+
+        // Initialize with some items visible
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show first accordion item
+            const firstAccordion = document.querySelector('.accordion-header');
+            if (firstAccordion) {
+                firstAccordion.classList.add('active');
+                firstAccordion.nextElementSibling.classList.add('active');
+                firstAccordion.querySelector('.icon').classList.add('rotate');
+            }
+        });
+    </script>
+</body>
+</html>

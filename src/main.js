@@ -20,6 +20,11 @@ document.querySelector('#app').innerHTML = `
       <p>Master CSS Grid Layout with interactive examples and practice exercises</p>
       <a href="/grid.html" class="grid-link">Start Learning Grid →</a>
     </div>
+    <div class="card animation-card">
+      <h2>✨ Height Animations</h2>
+      <p>Explore components with smooth height transitions - accordions, dropdowns, and more</p>
+      <a href="/height-animation.html" class="animation-link">View Animations →</a>
+    </div>
     <p class="read-the-docs">
       Click on the Vite logo to learn more
     </p>
