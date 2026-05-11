@@ -9,7 +9,7 @@ document.querySelector('.add-btn').addEventListener('click', () => {
     document.querySelector('.wrapper').appendChild(container);
 
     // Animate the progress bar
-    setTimeout(() => {
-        fill.style.width = '100%';
-    }, 100);
+    requestAnimationFrame(() => {
+    fill.style.width = '100%';
+  });
 });
