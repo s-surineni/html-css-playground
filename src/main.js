@@ -1,7 +1,6 @@
 import './style.css'
 import javascriptLogo from './javascript.svg'
 import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -27,7 +26,11 @@ document.querySelector('#app').innerHTML = `
       <p>Interactive progress bar demonstrations and examples</p>
       <a href="/src/progress-bar-with-throttle/progress-bar-with-throttle.html" class="progressbar-link">View Progress Bars →</a>
     </div>
+        <div class="card progressbar-card">
+      <h2>📊 Progress Bar With Throttle2</h2>
+      <p>Interactive progress bar demonstrations and examples</p>
+      <a href="/src/progress-bar-with-throttle2/progress-bar-with-throttle2.html" class="progressbar-link">View Progress Bars →</a>
+    </div>
   </div>
 `
 
-setupCounter(document.querySelector('#counter'))
