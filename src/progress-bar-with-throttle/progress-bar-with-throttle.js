@@ -25,7 +25,9 @@ function processQueue() {
 }
 
 function startWork(bar) {
-  bar.style.width = '100%';
+  requestAnimationFrame(() => {
+    bar.style.width = '100%';
+  });
   
   // Use timeout to simulate work completion
   setTimeout(() => {
