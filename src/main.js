@@ -22,9 +22,11 @@ document.querySelector('#app').innerHTML = `
       <p>Interactive progress bar demonstrations and examples</p>
       <a href="/src/progressbar/progressbar.html" class="progressbar-link">View Progress Bars →</a>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
+    <div class="card progressbar-card">
+      <h2>📊 Progress Bar With Throttle</h2>
+      <p>Interactive progress bar demonstrations and examples</p>
+      <a href="/src/progress-bar-with-throttle/progress-bar-with-throttle.html" class="progressbar-link">View Progress Bars →</a>
+    </div>
   </div>
 `
 
