@@ -1,0 +1,13 @@
+.progress-container {
+    height: 20px;
+    width: 300px;
+    background-color: gray;
+}
+
+.progress-fill {
+    background-color: aqua;
+    width: 0%;
+  height: 100%;
+
+      transition: width 3s linear; 
+}
