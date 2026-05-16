@@ -1,12 +1,7 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
-
-
     <div class="card grid-card">
       <h2>🎯 Learn CSS Grid</h2>
       <p>Master CSS Grid Layout with interactive examples and practice exercises</p>
@@ -28,11 +23,18 @@ document.querySelector('#app').innerHTML = `
       <a href="/src/progress-bar-with-throttle/progress-bar-with-throttle.html" class="progressbar-link">View Progress Bars →</a>
     </div>
     <div class="card progressbar-card">
+      <h2>📊 Progress Bar With Throttle2</h2>
+      <p>Interactive progress bar demonstrations and examples</p>
+      <a href="/src/progress-bar-with-throttle2/progress-bar-with-throttle2.html" class="progressbar-link">View Progress Bars →</a>
+    </div>
+    <div class="card">
+      <h2>Temp playground</h2>
+      <a href="/src/temp/temp.html">View temp component</a>
+    </div>
+    <div class="card progressbar-card">
       <h2>📊 Chat app</h2>
       <p>Interactive progress bar demonstrations and examples</p>
       <a href="/src/chat-app/chat-app.html" class="progressbar-link">Chat app →</a>
     </div>
   </div>
 `
-
-setupCounter(document.querySelector('#counter'))
