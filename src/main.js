@@ -27,6 +27,11 @@ document.querySelector('#app').innerHTML = `
       <p>Interactive progress bar demonstrations and examples</p>
       <a href="/src/progress-bar-with-throttle/progress-bar-with-throttle.html" class="progressbar-link">View Progress Bars →</a>
     </div>
+    <div class="card progressbar-card">
+      <h2>📊 Chat app</h2>
+      <p>Interactive progress bar demonstrations and examples</p>
+      <a href="/src/chat-app/chat-app.html" class="progressbar-link">Chat app →</a>
+    </div>
   </div>
 `
 
